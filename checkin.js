@@ -77,7 +77,13 @@ async function solveCaptcha(page, bgImgUrl, jigsawImgUrl) {
         if (isNaN(offset)) {
             throw new Error(`Failed to get valid offset from Python script: ${solveResult}`);
         }
-        console.log(`Calculated offset: ${offset}`);
+        console.log(`Raw calculated offset: ${offset}`);
+
+        // 验证码图片是 @2x 分辨率，需要除以2
+        // 并且需要加上校准值来补偿滑块左边的空白
+        const CALIBRATION_OFFSET = 45;
+        const scaledOffset = Math.round(offset / 2) + CALIBRATION_OFFSET;
+        console.log(`Scaled offset (÷2 + ${CALIBRATION_OFFSET}): ${scaledOffset}`);
 
         // Perform slider drag
         const sliderHandle = await page.$(sliderHandleSelector);
@@ -89,7 +95,7 @@ async function solveCaptcha(page, bgImgUrl, jigsawImgUrl) {
 
         const startX = sliderBoundingBox.x + sliderBoundingBox.width / 2;
         const startY = sliderBoundingBox.y + sliderBoundingBox.height / 2;
-        const endX = startX + offset;
+        const endX = startX + scaledOffset;
         const endY = startY;
 
         console.log(`Dragging from (${startX}, ${startY}) to (${endX}, ${endY})`);

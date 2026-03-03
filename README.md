@@ -33,8 +33,10 @@
 请创建以下三个 Secrets：
 
 *   `NATPIERCE_USERNAME`: 你的 natpierce.cn 登录手机号或邮箱。
-*   `NATPIERCE_PASSWORD`: 你的 natpierce.cn 登录密码。
+*   `NATPIERCE_PASSWORD`: 你的 natpierce.cn 登录密码。**注意：如果密码末尾有点号（.），请务必包含它！**
 *   `PUSHPLUS_TOKEN`: 你的 PushPlus 推送 Token。
+
+> ⚠️ **重要提示**：如果你的密码末尾有点号（.），一定要包含它，否则会提示"密码错误"。
 
 ### 3. 调整选择器 (重要！)
 
