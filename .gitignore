@@ -1,0 +1,9 @@
+# 本地运行文件
+node_modules/
+package-lock.json
+package.json
+run.sh
+checkin.log
+checkin_old.js
+checkin_v2.js
+debug/
