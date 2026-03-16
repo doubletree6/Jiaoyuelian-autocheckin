@@ -120,7 +120,14 @@ async function autoCheckIn() {
     });
     
     console.log('API返回:', JSON.stringify(result));
-    await delay(2000);
+    
+    // 签到成功后刷新页面获取最新的下次可签到时间
+    if (result.code === 200) {
+      console.log('签到成功，刷新页面获取最新时间...');
+      await delay(1000);
+      await page.reload({ waitUntil: 'domcontentloaded', timeout: 30000 });
+      await delay(2000);
+    }
     
     // 获取最终状态
     const finalContent = await page.content();
