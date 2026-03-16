@@ -36,7 +36,7 @@
 | 名称 | 值 | 说明 |
 |------|-----|------|
 | `NATPIERCE_USERNAME` | 你的手机号或邮箱 | 皎月连登录账号 |
-| `NATPIERCE_PASSWORD` | 你的密码 | ⚠️ 如果密码末尾有点号，请保留 |
+| `NATPIERCE_PASSWORD` | 你的密码 |  |
 | `PUSHPLUS_TOKEN` | 你的 Token | 从 PushPlus 公众号获取 |
 
 **添加示例：**
