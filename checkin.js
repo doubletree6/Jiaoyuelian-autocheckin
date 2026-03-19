@@ -73,7 +73,7 @@ async function autoCheckIn() {
     await delay(2000);
     
     // 等待签到按钮
-    await page.waitForSelector('#qiandao', { timeout: 30000 });
+    await page.waitForSelector('#qiandao', { timeout: 60000 });
     
     // 检查按钮状态
     const buttonText = await page.evaluate(() => document.querySelector('#qiandao')?.innerText);
