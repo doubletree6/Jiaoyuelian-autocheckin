@@ -72,8 +72,30 @@ async function autoCheckIn() {
     }
     await delay(2000);
     
-    // 等待签到按钮
-    await page.waitForSelector('#qiandao', { timeout: 60000 });
+    // 等待签到按钮（最多重试5次，每次失败后刷新页面）
+    const maxRetries = 5;
+    let selectorFound = false;
+    
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        console.log(`尝试查找签到按钮 (第 ${attempt}/${maxRetries} 次)...`);
+        await page.waitForSelector('#qiandao', { timeout: 30000 });
+        selectorFound = true;
+        console.log('签到按钮已找到！');
+        break;
+      } catch (e) {
+        console.log(`第 ${attempt} 次未找到签到按钮: ${e.message}`);
+        if (attempt < maxRetries) {
+          console.log('刷新页面后重试...');
+          await page.reload({ waitUntil: 'domcontentloaded', timeout: 60000 });
+          await delay(3000);
+        }
+      }
+    }
+    
+    if (!selectorFound) {
+      throw new Error(`等待签到按钮失败：已重试 ${maxRetries} 次`);
+    }
     
     // 检查按钮状态
     const buttonText = await page.evaluate(() => document.querySelector('#qiandao')?.innerText);
